@@ -10,7 +10,9 @@ import java.net.Socket;
 
 public class HttpServer {
 
-    public static final String WEB_ROOT = System.getProperty("usr.dir") + File.separator + "webroot";
+    public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";
+
+    public static final String  SHUTDOWN_COMMAND = "/SHUTDOWN";
 
     /**
      * the shutdown command received
@@ -46,8 +48,17 @@ public class HttpServer {
                 // create Request object and parse;
                 Request request = new Request(input);
 
+                request.parse();
 
-                // todo simon
+                Response response = new Response(output);
+                response.setRequest(request);
+                response.sendStaticResource();
+
+                // close the socket
+                socket.close();
+
+                // check if the previous URI is a shutdown command
+                shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
 
             } catch (Exception e) {
                 e.printStackTrace();

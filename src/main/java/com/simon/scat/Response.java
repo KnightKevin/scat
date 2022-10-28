@@ -24,6 +24,13 @@ public class Response {
         try {
             File file = new File(HttpServer.WEB_ROOT, request.getUri());
             if (file.exists()) {
+
+                // 增加必要的Response header，目的是为了让现代浏览器能够正常显示，这里假设文件全是html（为了偷懒）
+                String headers = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Type: text/html\r\n";
+
+                output.write(headers.getBytes());
+
                 fis = new FileInputStream(file);
                 int ch = fis.read(bytes, 0, BUFFER_SIZE);
                 while (ch!=-1) {
@@ -43,11 +50,12 @@ public class Response {
         }
         catch (Exception e) {
             // thrown if cannot instantiate a File object
-            System.out.println(e.toString() );
+            System.out.println(e);
         }
         finally {
-            if (fis!=null)
+            if (fis!=null) {
                 fis.close();
+            }
         }
     }
 }
