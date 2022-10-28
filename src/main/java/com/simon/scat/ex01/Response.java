@@ -1,4 +1,4 @@
-package com.simon.scat;
+package com.simon.scat.ex01;
 
 import java.io.File;
 import java.io.FileInputStream;

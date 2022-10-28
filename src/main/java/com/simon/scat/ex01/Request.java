@@ -1,10 +1,10 @@
-package com.simon.scat;
+package com.simon.scat.ex01;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class Request {
-    private InputStream input;
+    private final InputStream input;
     private String uri;
 
     public Request(InputStream input) {
@@ -26,7 +26,7 @@ public class Request {
         for (int j=0; j<i; j++) {
             request.append((char) buffer[j]);
         }
-        System.out.print(request.toString());
+        System.out.print(request);
         uri = parseUri(request.toString());
     }
 
