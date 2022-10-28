@@ -5,5 +5,5 @@ package com.simon.scat.ex02;
  * @author Simon
  * */
 public interface Constants {
-    String WEBROOT = System.getProperty("user.dir") + "/webroot";
+    String WEB_ROOT = System.getProperty("user.dir") + "/webroot";
 }
