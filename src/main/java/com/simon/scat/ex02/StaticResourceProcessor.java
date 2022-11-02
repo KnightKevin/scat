@@ -1,7 +1,13 @@
 package com.simon.scat.ex02;
 
+import java.io.IOException;
+
 public class StaticResourceProcessor {
     public void process(Request request, Response response) {
-        System.out.println("StaticResourceProcessor.process()");
+        try {
+            response.sendStaticResource();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

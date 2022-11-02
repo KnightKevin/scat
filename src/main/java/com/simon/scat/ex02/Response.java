@@ -10,6 +10,7 @@ public class Response implements ServletResponse {
     private static final int BUFFER_SIZE = 1024;
     Request request;
     OutputStream output;
+    PrintWriter writer;
 
     public Response(OutputStream output) {
         this.output = output;
@@ -73,7 +74,8 @@ public class Response implements ServletResponse {
     }
 
     public PrintWriter getWriter() throws IOException {
-        return null;
+        writer = new PrintWriter(output, true);
+        return writer;
     }
 
     public void setCharacterEncoding(String charset) {
