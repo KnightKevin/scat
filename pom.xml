@@ -5,8 +5,14 @@
     <groupId>com.simon</groupId>
     <artifactId>scat</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <description>how tomcat works</description>
+
+    <modules>
+        <module>ex01</module>
+        <module>ex02</module>
+        <module>ex03</module>
+    </modules>
 
 
     <dependencies>
