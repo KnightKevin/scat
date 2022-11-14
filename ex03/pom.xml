@@ -13,4 +13,19 @@
     <packaging>jar</packaging>
     <description>how tomcat works</description>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <filtering>true</filtering>
+
+                <!-- 是为了解决打包的时候会将配置文件也放到对应的包下面，由于StringManager的源码就是要把文件放在包路径下 -->
+                <includes>
+                    <include>**/*.class</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
 </project>

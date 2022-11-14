@@ -16,9 +16,31 @@ public class HttpRequest implements HttpServletRequest {
 
     InputStream input;
 
+    private String queryString;
+    private String method;
+    private String protocol;
+    private String requestURI;
+
     public HttpRequest(InputStream input) {
         this.input = input;
     }
+
+    public void setQueryString(String queryString) {
+        this.queryString = queryString;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public void setRequestURI(String requestURI) {
+        this.requestURI = requestURI;
+    }
+
     public String getAuthType() {
         return null;
     }
