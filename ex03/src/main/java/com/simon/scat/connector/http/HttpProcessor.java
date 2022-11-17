@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import static com.simon.scat.connector.http.SocketInputStream.sm;
+
 public class HttpProcessor {
 
     private final HttpConnector connector;
@@ -116,8 +118,39 @@ public class HttpProcessor {
 
     }
 
-    void parseHeaders(SocketInputStream input) {
+    void parseHeaders(SocketInputStream input) throws IOException, ServletException {
+        while (true) {
+            HttpHeader header = new HttpHeader();
+            // Read the next header
+            input.readHeader(header);
+            if (header.nameEnd == 0) {
+                if (header.valueEnd == 0) {
+                    return;
+                } else {
+                    throw new ServletException(sm.getString("httpProcessor.parseHeaders.colon"));
+                }
+            }
 
+            String name = new String(header.name, 0, header.nameEnd);
+            String value = new String(header.value, 0, header.valueEnd);
+
+            request.addHeader(name, value);
+
+            if ("content-length".equals(name)) {
+                int n = -1;
+                try {
+                    n = Integer.parseInt(value);
+                } catch (Exception e) {
+                    throw new ServletException(sm.getString("httpProcessor.parseHeaders.contentLength"));
+                }
+
+                request.setContentLength(n);
+            }
+
+            if ("content-type".equals(name)) {
+                request.setContentType(value);
+            }
+        }
     }
 
     /**
