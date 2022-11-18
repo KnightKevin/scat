@@ -3,8 +3,10 @@ package com.simon.scat.connector.http;
 
 import com.simon.scat.ServletProcessor;
 import com.simon.scat.StaticResourceProcessor;
+import org.apache.catalina.util.RequestUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -135,6 +137,20 @@ public class HttpProcessor {
             String value = new String(header.value, 0, header.valueEnd);
 
             request.addHeader(name, value);
+
+            if ("cookie".equals(name)) {
+                Cookie cookies[] = RequestUtil.parseCookieHeader(value);
+                for (Cookie cookie : cookies ) {
+//                    if ("jsessionid".equals(cookie.getName())) {
+//                        // Accept anything requested in the URL
+//                        if (!request.isRequestedSessionIdFromCookie()) {
+//                            // Accept only the first session id cookie
+//
+//                        }
+//                    }
+                    request.addCookie(cookie);
+                }
+            }
 
             if ("content-length".equals(name)) {
                 int n = -1;

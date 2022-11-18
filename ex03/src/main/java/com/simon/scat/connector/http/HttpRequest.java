@@ -20,6 +20,7 @@ public class HttpRequest implements HttpServletRequest {
     private Integer contentLength;
     private String contentType;
     private final Map<String, List<String>> headers = new HashMap<>();
+    private final List<Cookie> cookies = new ArrayList<>();
 
     public HttpRequest(InputStream input) {
         this.input = input;
@@ -60,6 +61,13 @@ public class HttpRequest implements HttpServletRequest {
 
     public void setContentType(String value) {
         this.contentType = value;
+    }
+
+
+    public void addCookie(Cookie cookie) {
+        synchronized (cookies) {
+            cookies.add(cookie);
+        }
     }
 
     @Override
@@ -406,4 +414,5 @@ public class HttpRequest implements HttpServletRequest {
     public DispatcherType getDispatcherType() {
         return null;
     }
+
 }
