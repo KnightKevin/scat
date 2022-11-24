@@ -1,47 +1,29 @@
 package com.simon.scat.connector.http;
 
-import com.simon.scat.connector.ResponseStream;
-import com.simon.scat.connector.ResponseWriter;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Locale;
 
-public class HttpResponse implements HttpServletResponse {
+public class HttpResponseFacade implements HttpServletResponse {
 
-    /**
-     * The character encoding associated with this Response
-     * */
-    protected String encoding = null;
+    private final HttpServletResponse response;
 
-    private final OutputStream output;
-
-    private HttpRequest request;
-
-    protected PrintWriter writer;
-
-    public HttpResponse(OutputStream output) {
-        this.output = output;
-    }
-
-    public void setRequest(HttpRequest request) {
-        this.request = request;
+    public HttpResponseFacade(HttpResponse response) {
+        this.response = response;
     }
 
     @Override
     public void addCookie(Cookie cookie) {
-
+        response.addCookie(cookie);
     }
 
     @Override
     public boolean containsHeader(String name) {
-        return false;
+        return response.containsHeader(name);
     }
 
     @Override
@@ -141,11 +123,7 @@ public class HttpResponse implements HttpServletResponse {
 
     @Override
     public String getCharacterEncoding() {
-        if (encoding == null) {
-            return ("ISO-8859-1");
-        } else {
-            return (encoding);
-        }
+        return null;
     }
 
     @Override
@@ -160,14 +138,7 @@ public class HttpResponse implements HttpServletResponse {
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        ResponseStream newStream  = new ResponseStream(this);
-        newStream.setCommit(false);
-
-        OutputStreamWriter osr = new OutputStreamWriter(newStream, getCharacterEncoding());
-
-        writer = new ResponseWriter(osr);
-
-        return writer;
+        return response.getWriter();
     }
 
     @Override
@@ -228,9 +199,5 @@ public class HttpResponse implements HttpServletResponse {
     @Override
     public Locale getLocale() {
         return null;
-    }
-
-    public void sendStaticResource() {
-        // todo
     }
 }
