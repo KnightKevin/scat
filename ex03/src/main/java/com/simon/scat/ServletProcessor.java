@@ -23,7 +23,7 @@ public class ServletProcessor {
             urls[0] = new URL(null, repository, streamHandler);
             loader = new URLClassLoader(urls);
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         Class clazz = null;
@@ -31,13 +31,14 @@ public class ServletProcessor {
         try {
             clazz = loader.loadClass(servletName);
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         try {
             Servlet servlet = (Servlet) clazz.newInstance();
             HttpRequestFacade requestFacade = new HttpRequestFacade(request);
             HttpResponseFacade responseFacade = new HttpResponseFacade(response);
+            servlet.service(requestFacade, responseFacade);
         } catch (Throwable e) {
             System.out.println(e);
         }

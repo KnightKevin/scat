@@ -15,6 +15,8 @@ import java.util.Locale;
 
 public class HttpResponse implements HttpServletResponse {
 
+    private static final int BUFFER_SIZE = 1024;
+
     /**
      * The character encoding associated with this Response
      * */
@@ -25,6 +27,12 @@ public class HttpResponse implements HttpServletResponse {
     private HttpRequest request;
 
     protected PrintWriter writer;
+
+    protected byte[] buffer = new byte[BUFFER_SIZE];
+
+    protected Integer bufferCount = 0;
+
+    protected int contentCount = 0;
 
     public HttpResponse(OutputStream output) {
         this.output = output;
@@ -170,6 +178,45 @@ public class HttpResponse implements HttpServletResponse {
         return writer;
     }
 
+    public void write(int b) throws IOException {
+        if (bufferCount >= buffer.length) {
+            flushBuffer();
+        }
+        buffer[bufferCount++] = (byte) b;
+        contentCount++;
+    }
+
+    public void write(byte[] b) throws IOException {
+        write(b, 0, b.length);
+    }
+
+    public void write(byte[] b, int off, int len) throws IOException {
+        // If the whole thing fits in the buffer, just put it there
+        if (len == 0) {
+            return;
+        }
+        if (len <= (buffer.length - bufferCount)) {
+            System.arraycopy(b, off, buffer, bufferCount, len);
+            bufferCount += len;
+            contentCount += len;
+            return;
+        }
+
+        // Flush the buffer and start writing full-buffer-size chunks
+        flushBuffer();
+        int iterations = len / buffer.length;
+        int leftoverStart = iterations * buffer.length;
+        int leftoverLen = len - leftoverStart;
+        for (int i = 0; i < iterations; i++) {
+            write(b, off + (i * buffer.length), buffer.length);
+        }
+
+        // Write the remainder (guaranteed to fit in the buffer)
+        if (leftoverLen > 0) {
+            write(b, off + leftoverStart, leftoverLen);
+        }
+    }
+
     @Override
     public void setCharacterEncoding(String charset) {
 
@@ -202,7 +249,14 @@ public class HttpResponse implements HttpServletResponse {
 
     @Override
     public void flushBuffer() throws IOException {
-
+        if (bufferCount > 0) {
+            try {
+                output.write(buffer, 0, bufferCount);
+            }
+            finally {
+                bufferCount = 0;
+            }
+        }
     }
 
     @Override

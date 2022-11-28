@@ -152,7 +152,7 @@ public class HttpRequest implements HttpServletRequest {
 
     @Override
     public String getRequestURI() {
-        return null;
+        return requestURI;
     }
 
     @Override
