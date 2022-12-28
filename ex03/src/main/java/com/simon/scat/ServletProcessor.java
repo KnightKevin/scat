@@ -39,6 +39,7 @@ public class ServletProcessor {
             HttpRequestFacade requestFacade = new HttpRequestFacade(request);
             HttpResponseFacade responseFacade = new HttpResponseFacade(response);
             servlet.service(requestFacade, responseFacade);
+            response.finishResponse();
         } catch (Throwable e) {
             System.out.println(e);
         }

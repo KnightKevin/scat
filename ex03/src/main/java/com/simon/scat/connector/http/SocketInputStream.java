@@ -51,7 +51,7 @@ public class SocketInputStream extends InputStream {
     /**
      * Internal buffer.
      */
-    protected byte buf[];
+    protected byte[] buf;
 
 
     /**
@@ -120,9 +120,8 @@ public class SocketInputStream extends InputStream {
             throws IOException {
 
         // Recycling check
-        if (requestLine.methodEnd != 0) {
+        if (requestLine.methodEnd != 0)
             requestLine.recycle();
-        }
 
         // Checking for a blank line
         int chr = 0;
@@ -133,10 +132,9 @@ public class SocketInputStream extends InputStream {
                 chr = -1;
             }
         } while ((chr == CR) || (chr == LF));
-        if (chr == -1) {
+        if (chr == -1)
             throw new EOFException
                     (sm.getString("requestStream.readline.error"));
-        }
         pos--;
 
         // Reading the method name
@@ -208,10 +206,9 @@ public class SocketInputStream extends InputStream {
             // We're at the end of the internal buffer
             if (pos >= count) {
                 int val = read();
-                if (val == -1) {
+                if (val == -1)
                     throw new IOException
                             (sm.getString("requestStream.readline.error"));
-                }
                 pos = 0;
                 readStart = 0;
             }
@@ -281,7 +278,6 @@ public class SocketInputStream extends InputStream {
      * function is meant to be used during the HTTP request header parsing.
      * Do NOT attempt to read the request body using it.
      *
-     * @param header header
      * @throws IOException If an exception occurs during the underlying socket
      * read operations, or if the given buffer is not big enough to accomodate
      * the whole line.
@@ -290,16 +286,14 @@ public class SocketInputStream extends InputStream {
             throws IOException {
 
         // Recycling check
-        if (header.nameEnd != 0) {
+        if (header.nameEnd != 0)
             header.recycle();
-        }
 
         // Checking for a blank line
         int chr = read();
         if ((chr == CR) || (chr == LF)) { // Skipping CR
-            if (chr == CR) {
+            if (chr == CR)
                 read(); // Skipping LF
-            }
             header.nameEnd = 0;
             header.valueEnd = 0;
             return;
@@ -376,10 +370,9 @@ public class SocketInputStream extends InputStream {
                     // Copying part (or all) of the internal buffer to the line
                     // buffer
                     int val = read();
-                    if (val == -1) {
+                    if (val == -1)
                         throw new IOException
                                 (sm.getString("requestStream.readline.error"));
-                    }
                     pos = 0;
                     readStart = 0;
                 }
@@ -409,10 +402,9 @@ public class SocketInputStream extends InputStream {
                     // Copying part (or all) of the internal buffer to the line
                     // buffer
                     int val = read();
-                    if (val == -1) {
+                    if (val == -1)
                         throw new IOException
                                 (sm.getString("requestStream.readline.error"));
-                    }
                     pos = 0;
                     readStart = 0;
                 }
@@ -462,23 +454,43 @@ public class SocketInputStream extends InputStream {
     /**
      * Read byte.
      */
-    @Override
     public int read()
             throws IOException {
         if (pos >= count) {
             fill();
-            if (pos >= count) {
+            if (pos >= count)
                 return -1;
-            }
         }
         return buf[pos++] & 0xff;
     }
+
+
+    /**
+     *
+     */
+    /*
+    public int read(byte b[], int off, int len)
+        throws IOException {
+
+    }
+    */
+
+
+    /**
+     *
+     */
+    /*
+    public long skip(long n)
+        throws IOException {
+
+    }
+    */
+
 
     /**
      * Returns the number of bytes that can be read from this input
      * stream without blocking.
      */
-    @Override
     public int available()
             throws IOException {
         return (count - pos) + is.available();
@@ -488,12 +500,10 @@ public class SocketInputStream extends InputStream {
     /**
      * Close the input stream.
      */
-    @Override
     public void close()
             throws IOException {
-        if (is == null) {
+        if (is == null)
             return;
-        }
         is.close();
         is = null;
         buf = null;

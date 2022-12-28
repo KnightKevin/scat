@@ -15,351 +15,263 @@ public class HttpRequestFacade implements HttpServletRequest {
 
     private final HttpServletRequest request;
 
-    public HttpRequestFacade(HttpServletRequest request) {
+    public HttpRequestFacade(HttpRequest request) {
         this.request = request;
     }
 
-    @Override
-    public String getAuthType() {
-        return null;
-    }
-
-    @Override
-    public Cookie[] getCookies() {
-        return new Cookie[0];
-    }
-
-    @Override
-    public long getDateHeader(String name) {
-        return 0;
-    }
-
-    @Override
-    public String getHeader(String name) {
-        return null;
-    }
-
-    @Override
-    public Enumeration<String> getHeaders(String name) {
-        return null;
-    }
-
-    @Override
-    public Enumeration<String> getHeaderNames() {
-        return null;
-    }
-
-    @Override
-    public int getIntHeader(String name) {
-        return 0;
-    }
-
-    @Override
-    public String getMethod() {
-        return null;
-    }
-
-    @Override
-    public String getPathInfo() {
-        return null;
-    }
-
-    @Override
-    public String getPathTranslated() {
-        return null;
-    }
-
-    @Override
-    public String getContextPath() {
-        return null;
-    }
-
-    @Override
-    public String getQueryString() {
-        return null;
-    }
-
-    @Override
-    public String getRemoteUser() {
-        return null;
-    }
-
-    @Override
-    public boolean isUserInRole(String role) {
-        return false;
-    }
-
-    @Override
-    public Principal getUserPrincipal() {
-        return null;
-    }
-
-    @Override
-    public String getRequestedSessionId() {
-        return null;
-    }
-
-    @Override
-    public String getRequestURI() {
-        return null;
-    }
-
-    @Override
-    public StringBuffer getRequestURL() {
-        return null;
-    }
-
-    @Override
-    public String getServletPath() {
-        return null;
-    }
-
-    @Override
-    public HttpSession getSession(boolean create) {
-        return null;
-    }
-
-    @Override
-    public HttpSession getSession() {
-        return null;
-    }
-
-    @Override
-    public String changeSessionId() {
-        return null;
-    }
-
-    @Override
-    public boolean isRequestedSessionIdValid() {
-        return false;
-    }
-
-    @Override
-    public boolean isRequestedSessionIdFromCookie() {
-        return false;
-    }
-
-    @Override
-    public boolean isRequestedSessionIdFromURL() {
-        return false;
-    }
-
-    @Override
-    public boolean isRequestedSessionIdFromUrl() {
-        return false;
-    }
-
-    @Override
-    public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
-        return false;
-    }
-
-    @Override
-    public void login(String username, String password) throws ServletException {
-
-    }
-
-    @Override
-    public void logout() throws ServletException {
-
-    }
-
-    @Override
-    public Collection<Part> getParts() throws IOException, ServletException {
-        return null;
-    }
-
-    @Override
-    public Part getPart(String name) throws IOException, ServletException {
-        return null;
-    }
-
-    @Override
-    public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
-        return null;
-    }
-
-    @Override
+    /* implementation of the HttpServletRequest*/
     public Object getAttribute(String name) {
-        return null;
+        return request.getAttribute(name);
     }
 
-    @Override
-    public Enumeration<String> getAttributeNames() {
-        return null;
+    public Enumeration getAttributeNames() {
+        return request.getAttributeNames();
     }
 
-    @Override
+    public String getAuthType() {
+        return request.getAuthType();
+    }
+
     public String getCharacterEncoding() {
-        return null;
+        return request.getCharacterEncoding();
     }
 
-    @Override
-    public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-
-    }
-
-    @Override
     public int getContentLength() {
-        return 0;
+        return request.getContentLength();
     }
 
-    @Override
-    public long getContentLengthLong() {
-        return 0;
-    }
-
-    @Override
     public String getContentType() {
-        return null;
+        return request.getContentType();
     }
 
-    @Override
+    public String getContextPath() {
+        return request.getContextPath();
+    }
+
+    public Cookie[] getCookies() {
+        return request.getCookies();
+    }
+
+    public long getDateHeader(String name) {
+        return request.getDateHeader(name);
+    }
+
+    public Enumeration getHeaderNames() {
+        return request.getHeaderNames();
+    }
+
+    public String getHeader(String name) {
+        return request.getHeader(name);
+    }
+
+    public Enumeration getHeaders(String name) {
+        return request.getHeaders(name);
+    }
+
     public ServletInputStream getInputStream() throws IOException {
-        return null;
+        return request.getInputStream();
     }
 
-    @Override
-    public String getParameter(String name) {
-        return null;
+    public int getIntHeader(String name) {
+        return request.getIntHeader(name);
     }
 
-    @Override
-    public Enumeration<String> getParameterNames() {
-        return null;
-    }
-
-    @Override
-    public String[] getParameterValues(String name) {
-        return new String[0];
-    }
-
-    @Override
-    public Map<String, String[]> getParameterMap() {
-        return null;
-    }
-
-    @Override
-    public String getProtocol() {
-        return null;
-    }
-
-    @Override
-    public String getScheme() {
-        return null;
-    }
-
-    @Override
-    public String getServerName() {
-        return null;
-    }
-
-    @Override
-    public int getServerPort() {
-        return 0;
-    }
-
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return null;
-    }
-
-    @Override
-    public String getRemoteAddr() {
-        return null;
-    }
-
-    @Override
-    public String getRemoteHost() {
-        return null;
-    }
-
-    @Override
-    public void setAttribute(String name, Object o) {
-
-    }
-
-    @Override
-    public void removeAttribute(String name) {
-
-    }
-
-    @Override
     public Locale getLocale() {
-        return null;
+        return request.getLocale();
     }
 
-    @Override
-    public Enumeration<Locale> getLocales() {
-        return null;
+    public Enumeration getLocales() {
+        return request.getLocales();
     }
 
-    @Override
-    public boolean isSecure() {
-        return false;
+    public String getMethod() {
+        return request.getMethod();
     }
 
-    @Override
-    public RequestDispatcher getRequestDispatcher(String path) {
-        return null;
+    public String getParameter(String name) {
+        return request.getParameter(name);
     }
 
-    @Override
+    public Map getParameterMap() {
+        return request.getParameterMap();
+    }
+
+    public Enumeration getParameterNames() {
+        return request.getParameterNames();
+    }
+
+    public String[] getParameterValues(String name) {
+        return request.getParameterValues(name);
+    }
+
+    public String getPathInfo() {
+        return request.getPathInfo();
+    }
+
+    public String getPathTranslated() {
+        return request.getPathTranslated();
+    }
+
+    public String getProtocol() {
+        return request.getProtocol();
+    }
+
+    public String getQueryString() {
+        return request.getQueryString();
+    }
+
+    public BufferedReader getReader() throws IOException {
+        return request.getReader();
+    }
+
     public String getRealPath(String path) {
-        return null;
+        return request.getRealPath(path);
     }
 
-    @Override
-    public int getRemotePort() {
-        return 0;
+    public String getRemoteAddr() {
+        return request.getRemoteAddr();
     }
 
-    @Override
-    public String getLocalName() {
-        return null;
+    public String getRemoteHost() {
+        return request.getRemoteHost();
     }
 
-    @Override
+    public String getRemoteUser() {
+        return request.getRemoteUser();
+    }
+
+    public RequestDispatcher getRequestDispatcher(String path) {
+        return request.getRequestDispatcher(path);
+    }
+
+    public String getRequestedSessionId() {
+        return request.getRequestedSessionId();
+    }
+
+    public String getRequestURI() {
+        return request.getRequestURI();
+    }
+
+    public StringBuffer getRequestURL() {
+        return request.getRequestURL();
+    }
+
+    public String getScheme() {
+        return request.getScheme();
+    }
+
+    public String getServerName() {
+        return request.getServerName();
+    }
+
+    public int getServerPort() {
+        return request.getServerPort();
+    }
+
+    public HttpSession getSession() {
+        return request.getSession();
+    }
+
+    public HttpSession getSession(boolean create) {
+        return request.getSession(create);
+    }
+
+    public String getServletPath() {
+        return request.getServletPath();
+    }
+
+    public Principal getUserPrincipal() {
+        return request.getUserPrincipal();
+    }
+
+    public boolean isRequestedSessionIdFromCookie() {
+        return request.isRequestedSessionIdFromCookie();
+    }
+
+    public boolean isRequestedSessionIdFromUrl() {
+        return request.isRequestedSessionIdFromURL();
+    }
+
+    public boolean isRequestedSessionIdFromURL() {
+        return request.isRequestedSessionIdFromURL();
+    }
+
+    public boolean isRequestedSessionIdValid() {
+        return request.isRequestedSessionIdValid();
+    }
+
+    public boolean isSecure() {
+        return request.isSecure();
+    }
+
+    public boolean isUserInRole(String role) {
+        return request.isUserInRole(role);
+    }
+
+    public void removeAttribute(String attribute) {
+        request.removeAttribute(attribute);
+    }
+
+    public void setAttribute(String key, Object value) {
+        request.setAttribute(key, value);
+    }
+
+    public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
+        request.setCharacterEncoding(encoding);
+    }
+
+    //The method not use
+    public String changeSessionId(){ return "";}
+    public boolean authenticate(HttpServletResponse var1) throws IOException, ServletException{return false;}
+    public void login(String var1, String var2) throws ServletException{}
+
+    public void logout() throws ServletException{}
+
+    public Collection<Part> getParts() throws IOException, ServletException{return null;}
+
+    public Part getPart(String var1) throws IOException, ServletException{return null;}
+
+    public <T extends HttpUpgradeHandler> T upgrade(Class<T> var1) throws IOException, ServletException{return null;}
+
+    public long getContentLengthLong(){return 1;}
+
+
+    public int getRemotePort(){return 8080;}
+
+    public String getLocalName(){return null;}
+
     public String getLocalAddr() {
         return null;
     }
 
-    @Override
     public int getLocalPort() {
         return 0;
     }
 
-    @Override
     public ServletContext getServletContext() {
         return null;
     }
 
-    @Override
     public AsyncContext startAsync() throws IllegalStateException {
         return null;
     }
 
-    @Override
     public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) throws IllegalStateException {
         return null;
     }
 
-    @Override
     public boolean isAsyncStarted() {
         return false;
     }
 
-    @Override
     public boolean isAsyncSupported() {
         return false;
     }
 
-    @Override
     public AsyncContext getAsyncContext() {
         return null;
     }
 
-    @Override
     public DispatcherType getDispatcherType() {
         return null;
     }

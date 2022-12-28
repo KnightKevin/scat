@@ -9,195 +9,157 @@ import java.util.Collection;
 import java.util.Locale;
 
 public class HttpResponseFacade implements HttpServletResponse {
-
     private final HttpServletResponse response;
-
     public HttpResponseFacade(HttpResponse response) {
         this.response = response;
     }
 
-    @Override
+    /** implementation of HttpServletResponse  */
     public void addCookie(Cookie cookie) {
         response.addCookie(cookie);
     }
 
-    @Override
+    public void addDateHeader(String name, long value) {
+        response.addDateHeader(name, value);
+    }
+
+    public void addHeader(String name, String value) {
+        response.addHeader(name, value);
+    }
+
+    public void addIntHeader(String name, int value) {
+        response.addIntHeader(name, value);
+    }
+
     public boolean containsHeader(String name) {
         return response.containsHeader(name);
     }
 
-    @Override
-    public String encodeURL(String url) {
-        return null;
-    }
-
-    @Override
     public String encodeRedirectURL(String url) {
-        return null;
+        return response.encodeRedirectURL(url);
     }
 
-    @Override
-    public String encodeUrl(String url) {
-        return null;
-    }
-
-    @Override
     public String encodeRedirectUrl(String url) {
-        return null;
+        return response.encodeRedirectUrl(url);
     }
 
-    @Override
-    public void sendError(int sc, String msg) throws IOException {
-
+    public String encodeUrl(String url) {
+        return response.encodeUrl(url);
     }
 
-    @Override
-    public void sendError(int sc) throws IOException {
-
+    public String encodeURL(String url) {
+        return response.encodeURL(url);
     }
 
-    @Override
-    public void sendRedirect(String location) throws IOException {
-
+    public void flushBuffer() throws IOException {
+        response.flushBuffer();
     }
 
-    @Override
-    public void setDateHeader(String name, long date) {
-
+    public int getBufferSize() {
+        return response.getBufferSize();
     }
 
-    @Override
-    public void addDateHeader(String name, long date) {
-
-    }
-
-    @Override
-    public void setHeader(String name, String value) {
-
-    }
-
-    @Override
-    public void addHeader(String name, String value) {
-
-    }
-
-    @Override
-    public void setIntHeader(String name, int value) {
-
-    }
-
-    @Override
-    public void addIntHeader(String name, int value) {
-
-    }
-
-    @Override
-    public void setStatus(int sc) {
-
-    }
-
-    @Override
-    public void setStatus(int sc, String sm) {
-
-    }
-
-    @Override
-    public int getStatus() {
-        return 0;
-    }
-
-    @Override
-    public String getHeader(String name) {
-        return null;
-    }
-
-    @Override
-    public Collection<String> getHeaders(String name) {
-        return null;
-    }
-
-    @Override
-    public Collection<String> getHeaderNames() {
-        return null;
-    }
-
-    @Override
     public String getCharacterEncoding() {
-        return null;
+        return response.getCharacterEncoding();
     }
 
-    @Override
-    public String getContentType() {
-        return null;
+    public Locale getLocale() {
+        return response.getLocale();
     }
 
-    @Override
     public ServletOutputStream getOutputStream() throws IOException {
-        return null;
+        return response.getOutputStream();
     }
 
-    @Override
     public PrintWriter getWriter() throws IOException {
         return response.getWriter();
     }
 
-    @Override
-    public void setCharacterEncoding(String charset) {
-
+    public boolean isCommitted() {
+        return response.isCommitted();
     }
 
-    @Override
-    public void setContentLength(int len) {
-
+    public void reset() {
+        response.reset();
     }
 
-    @Override
-    public void setContentLengthLong(long len) {
-
+    public void resetBuffer() {
+        response.resetBuffer();
     }
 
-    @Override
-    public void setContentType(String type) {
-
+    public void sendError(int sc) throws IOException {
+        response.sendError(sc);
     }
 
-    @Override
+    public void sendError(int sc, String message) throws IOException {
+        response.sendError(sc, message);
+    }
+
+    public void sendRedirect(String location) throws IOException {
+        response.sendRedirect(location);
+    }
+
     public void setBufferSize(int size) {
-
+        response.setBufferSize(size);
     }
 
-    @Override
-    public int getBufferSize() {
+    public void setContentLength(int length) {
+        response.setContentLength(length);
+    }
+
+    public void setContentType(String type) {
+        response.setContentType(type);
+    }
+
+    public void setDateHeader(String name, long value) {
+        response.setDateHeader(name, value);
+    }
+
+    public void setHeader(String name, String value) {
+        response.setHeader(name, value);
+    }
+
+    public void setIntHeader(String name, int value) {
+        response.setIntHeader(name, value);
+    }
+
+    public void setLocale(Locale locale) {
+        response.setLocale(locale);
+    }
+
+    public void setStatus(int sc) {
+        response.setStatus(sc);
+    }
+
+    public void setStatus(int sc, String message) {
+        response.setStatus(sc, message);
+    }
+
+    public int getStatus() {
         return 0;
     }
 
-    @Override
-    public void flushBuffer() throws IOException {
-
-    }
-
-    @Override
-    public void resetBuffer() {
-
-    }
-
-    @Override
-    public boolean isCommitted() {
-        return false;
-    }
-
-    @Override
-    public void reset() {
-
-    }
-
-    @Override
-    public void setLocale(Locale loc) {
-
-    }
-
-    @Override
-    public Locale getLocale() {
+    public String getHeader(String s) {
         return null;
+    }
+
+    public Collection<String> getHeaders(String s) {
+        return null;
+    }
+
+    public Collection<String> getHeaderNames() {
+        return null;
+    }
+
+    public String getContentType() {
+        return null;
+    }
+
+    public void setCharacterEncoding(String s) {
+
+    }
+
+    public void setContentLengthLong(long l) {
+
     }
 }
